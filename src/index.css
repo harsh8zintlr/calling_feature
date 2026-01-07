@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 18% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 172 66% 50%;
+    --primary-foreground: 220 20% 4%;
+
+    --secondary: 220 16% 14%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 220 16% 16%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 172 66% 40%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 20% 4%;
+
+    --border: 220 16% 18%;
+    --input: 220 16% 20%;
+    --ring: 172 66% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 18% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 172 66% 50%;
+    --sidebar-primary-foreground: 220 20% 4%;
+    --sidebar-accent: 220 16% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 220 16% 14%;
+    --sidebar-ring: 172 66% 50%;
+
+    /* Call status colors */
+    --call-active: 142 70% 45%;
+    --call-ringing: 38 92% 50%;
+    --call-missed: 0 72% 55%;
+    --call-incoming: 217 91% 60%;
+    --call-outgoing: 172 66% 50%;
+  }
+
+  .dark {
+    --background: 220 20% 4%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 shadow-xl;
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(172 66% 50%) 0%, hsl(190 80% 40%) 100%);
+  }
+
+  .gradient-card {
+    background: linear-gradient(180deg, hsl(220 18% 10%) 0%, hsl(220 18% 6%) 100%);
+  }
+
+  .call-pulse {
+    animation: pulse-ring 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+  }
+
+  .stat-glow {
+    box-shadow: 0 0 40px -8px hsl(172 66% 50% / 0.3);
+  }
+
+  .audio-wave {
+    animation: audio-wave 1s ease-in-out infinite;
+  }
+
+  .audio-wave:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .audio-wave:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+
+  .audio-wave:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 hsl(142 70% 45% / 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px hsl(142 70% 45% / 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 hsl(142 70% 45% / 0);
+  }
+}
+
+@keyframes audio-wave {
+  0%, 100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(220 18% 8%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(220 16% 24%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(220 16% 32%);
+}
