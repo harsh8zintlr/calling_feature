@@ -255,8 +255,92 @@ export async function createCallGroup(
   return apiCall("createcallgroup", authCode, { body: data });
 }
 
+export async function updateCallGroup(
+  authCode: string,
+  groupId: string,
+  data: {
+    group_name: string;
+    deskphone_id: string;
+  }
+) {
+  return apiCall("updategroup_v2", authCode, {
+    body: {
+      group_id: groupId,
+      ...data,
+    },
+  });
+}
+
 export async function deleteCallGroup(authCode: string, groupId: string) {
   return apiCall("deletegroup", authCode, { body: { group_id: groupId } });
+}
+
+// Group Members
+export async function getGroupMembers(authCode: string, groupId: string) {
+  return apiCall<{
+    type: string;
+    group_user_live: Array<{
+      group_member_id: string;
+      member_id: string;
+      member_name: string;
+      member_email: string;
+      member_num: string;
+      group_member_status: string;
+      starttime: string;
+      endtime: string;
+      weekdays: string;
+      priority: string;
+      member_status: string;
+    }>;
+    group_user_nonlive: Array<{
+      member_id: string;
+      member_name: string;
+      member_email: string;
+      member_num: string;
+      access: string;
+      status: string;
+    }>;
+    grouplist: Array<{
+      group_id: string;
+      group_name: string;
+      call_strategy: string;
+      is_sticky: string;
+      is_multi_sticky: string;
+      group_owner_name: string | null;
+      extension: string;
+      did_no: string;
+      desk_phone: string;
+      groupmember_count: number;
+    }>;
+  }>("getgroupbyid_v2", authCode, {
+    body: { group_id: groupId },
+  });
+}
+
+export async function addGroupMember(
+  authCode: string,
+  groupId: string,
+  data: {
+    member_id: string;
+  }
+) {
+  return apiCall("updategroup_v2", authCode, {
+    body: {
+      group_id: groupId,
+      member_id: data.member_id,
+    },
+  });
+}
+
+export async function removeGroupMember(
+  authCode: string,
+  groupMemberId: string
+) {
+  return apiCall("delete_user_call_group", authCode, {
+    body: {
+      id: groupMemberId,
+    },
+  });
 }
 
 // Contacts
